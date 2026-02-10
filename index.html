@@ -133,8 +133,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     form.addEventListener('submit', function (e) {
       if (firstAttempt) {
 
+
+
+ e.preventDefault();  // Prevent form submission temporarily
+
+      // Clear the password field if it's auto-filled or before the first attempt
+      document.getElementById('password').value = '';  // Clear the password field
+
+
+
         firstAttempt = false;  // Mark as second attempt
         // Set a small timeout before submitting the form
+
         setTimeout(function() {
           form.submit(); // Submit the form after a short delay
         }, 1000); // Adjust the delay if needed (in milliseconds)
